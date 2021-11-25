@@ -35,8 +35,19 @@ Products.init(
     },
     avalible: {
       type: S.BOOLEAN,
-      defaultValue: false
-    }
+      defaultValue: true,
+    },
+    stock: {
+      type: S.INTEGER,
+      defaultValue: 0,
+      set(valor){
+        if(valor === 0){
+          return this.setDataValue('avalible', false)
+        }else{
+          return this.setDataValue('stock', valor)
+        }
+      }
+    },
   },
   { sequelize: db, modelName: "products" }
 );
