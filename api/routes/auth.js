@@ -18,7 +18,9 @@ function isLogIn(req, res, next) {
   }
   
   router.get("/register", (req, res, next) => {
-    User.findAll()
+    User.findAll({
+      include: []
+    })
       .then((data) => res.send(data))
       .catch(next);
   });

@@ -12,6 +12,7 @@ const session = require("express-session");
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 //MODELS
+
 const {Categories, Products, User}= require("./models/tables")
 
 app.use(bodyParser.json());
@@ -72,6 +73,6 @@ app.use("/api", routes);
 
 const PORT = process.env.PORT || 3001;
 
-db.sync({ force:false }).then(() => {
+db.sync({ force:true }).then(() => {
   app.listen(PORT, () => console.log(`SERVIDOR ESCUCHANDO EN PUERTO ${PORT}`));
 });
