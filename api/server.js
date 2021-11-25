@@ -13,7 +13,7 @@ const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 //MODELS
 
-const {Categories, Products, User}= require("./models/tables")
+const {Products, User}= require("./models/asociations")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -73,6 +73,6 @@ app.use("/api", routes);
 
 const PORT = process.env.PORT || 3001;
 
-db.sync({ force:true }).then(() => {
+db.sync({ force:false }).then(() => {
   app.listen(PORT, () => console.log(`SERVIDOR ESCUCHANDO EN PUERTO ${PORT}`));
 });
