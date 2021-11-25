@@ -32,6 +32,10 @@ Products.init(
     image:{
         type: S.STRING,
         allowNull: false
+    },
+    avalible: {
+      type: S.BOOLEAN,
+      defaultValue: false
     }
   },
   { sequelize: db, modelName: "products" }

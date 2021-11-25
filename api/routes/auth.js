@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("../models/User")
+const Products = require("../models/Products")
+require("../models/asociations")
+
 var cors = require("cors");
 
 router.use(cors());
@@ -19,7 +22,14 @@ function isLogIn(req, res, next) {
   
   router.get("/register", (req, res, next) => {
     User.findAll({
-      include: []
+      include:[{
+        model: Products,
+        as: 'favorites',
+        attributes: ['name', 'location', 'image', 'price']
+      },{
+        model: Products,
+        as: 'products'
+      }]
     })
       .then((data) => res.send(data))
       .catch(next);

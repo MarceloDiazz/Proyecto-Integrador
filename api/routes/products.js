@@ -6,7 +6,7 @@ router.use(cors());
 
 
 // /api/products
-
+//ACA HACER LO DE LAS CATEGORIAS
 
 router.get("/", (req, res, next) => {
   Products.findAll()
