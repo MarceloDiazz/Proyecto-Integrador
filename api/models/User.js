@@ -24,6 +24,10 @@ User.init(
     password: {
       type: S.STRING,
     },
+    admin:{
+      type: S.BOOLEAN,
+      default: false,
+    },
     salt: {
       type: S.STRING,
     },
