@@ -13,7 +13,8 @@ const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 //MODELS
 
-const {Products, User}= require("./models/asociations")
+const User = require("./models/User")
+const Products = require("./models/Products")
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

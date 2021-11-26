@@ -5,6 +5,8 @@ var cors = require("cors");
 
 router.use(cors());
 
+//Admin va a poder eliminar, editar todo
 
+//tengo que hacer un put, delete 
 
 module.exports = router;
