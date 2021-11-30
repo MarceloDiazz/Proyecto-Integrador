@@ -26,7 +26,7 @@ User.init(
     },
     admin:{
       type: S.BOOLEAN,
-      default: false,
+      defaultValue: false,
     },
     salt: {
       type: S.STRING,

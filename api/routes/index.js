@@ -3,8 +3,8 @@ const router = express.Router();
 const auth= require('./auth')
 const products= require('./products')
 const admin= require('./admin')
-
-
+const users= require('./users')
+const { checkAuthAdmin, checkAuth } = require("../middleware/auth");
 // /api/
 
 //PRODUCTS
@@ -12,8 +12,9 @@ router.use('/products', products)
 
 
 //USERS (passport, rol admin)
+router.use('/users', users)
 router.use('/auth', auth)
-router.use('/admin', admin)
+router.use('/admin',checkAuthAdmin, admin)
 
 //PROBANDO RUTA
 router.get('/',(req, res)=>{

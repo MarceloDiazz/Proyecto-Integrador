@@ -7,7 +7,7 @@ const routes = require("./routes/index");
 const db = require("./db/db");
 const app = express();
 const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
+
 const session = require("express-session");
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
@@ -16,8 +16,8 @@ const localStrategy = require("passport-local").Strategy;
 const User = require("./models/User")
 const Products = require("./models/Products")
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 /* app.use(express.json()); */
