@@ -37,6 +37,10 @@ Products.init(
       type: S.BOOLEAN,
       defaultValue: true,
     },
+    category: {
+      type: S.STRING,
+      allowNull: false,
+    },
     stock: {
       type: S.INTEGER,
       defaultValue: 0,

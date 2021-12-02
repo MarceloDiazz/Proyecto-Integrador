@@ -16,7 +16,7 @@ const Register = () => {
     //poner un then con una notificacion
   }
     return (
-        <div className="min-h-screen flex items-center justify-center bg-red-400">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-yellow-500 via-green-600 to-red-500 to-red-500">
 
     
         <div className="bg-white p-16 rounded shadow-2xl w-2/3">
@@ -42,7 +42,7 @@ const Register = () => {
       
             <div className="flex items-center">
               <input type="url" id="agree"/>
-              <Link to="/log">Already have an account? Sign in</Link>
+              <Link to="/login">Already have an account? Sign in</Link>
             </div>
       
             <button className="block w-full bg-yellow-400 hover:bg-yellow-300 p-4 rounded text-yellow-900 hover:text-yellow-800 transition duration-300">Sign Up</button>

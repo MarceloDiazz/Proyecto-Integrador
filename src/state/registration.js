@@ -32,7 +32,7 @@ const reducerRegistration = createReducer(
     {},
     {
         [setUser]: (state, action) => (state = action.payload),
-        [postUserLoged.fulfilled]: (state, action) => (state = action.payload),
+        [postUserLoged.fulfilled]: (state, action) => (action.payload),
         [postUserLoged.rejected]: (state, action) => console.log(action),
         [postUserRegister.fulfilled]: (state, action) => (state = {}),
         [sendLogoutRequest.fulfilled]: (state, action) => (state = {})
