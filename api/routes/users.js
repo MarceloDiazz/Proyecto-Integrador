@@ -14,12 +14,8 @@ router.get("/", (req, res, next) => {
       include: [
         {
           model: Products,
-          as: "favorites",
-          attributes: ["name", "location", "image", "price"],
-        },
-        {
-          model: Products,
           as: "products",
+          attributes: ["name", "location", "image", "price"],
         },
       ],
     })

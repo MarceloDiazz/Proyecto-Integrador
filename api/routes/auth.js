@@ -11,9 +11,17 @@ router.use(cors());
 router.post("/login", passport.authenticate("local"), function (req, res) {
   // If this function gets called, authentication was successful.
   // `req.user` contains the authenticated user.
-  !req.user ? res.sendStatus(401) : res.send(req.user);
+  req.user.id ? res.send(req.user) : res.sendStatus(401);
 });
 
+/* 
+router.get("/login",function (req, res) {
+  // If this function gets called, authentication was successful.
+  // `req.user` contains the authenticated user.
+  console.log(req.body);
+  res.send(req.body)
+});
+ */
 
 router.post("/register", (req, res, next) => {
   const { email } = req.body;

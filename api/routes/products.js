@@ -25,8 +25,8 @@ router.post("/", (req, res, next) => {
 
 //Buscar por nombre
 router.get("/category/:category", (req, res, next) => {
-  let name = req.params.category;
-  Products.findAll({where: {name: name}})
+  let category = req.params.category;
+  Products.findAll({where: {category: category}})
     .then((data) => res.send(data))
     .catch(next);
 });

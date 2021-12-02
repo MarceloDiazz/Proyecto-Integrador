@@ -1,20 +1,37 @@
-import React from 'react'
-import {postUserLoged} from "../../state/registration"
+import {React, useState} from 'react'
+import {postUserLoged, setUser} from "../../state/registration"
 import { useDispatch } from "react-redux";
 import useInput from "../../hook/useInput"
+import { useNavigate } from 'react-router-dom';
+import { message } from "antd";
 
 const Login = () => {
-
+  const navigate = useNavigate();
   const email = useInput("");
   const password = useInput("");
   const dispatch = useDispatch();
+  const [user, setUser]= useState({})
+
    const handleSubmit = (event) => {
     event.preventDefault()
     dispatch(postUserLoged({email: email.value, password: password.value}))
-    //poner un then con una notificacion
+   /*  .then(({payload})=> payload)
+    .then((userLoged)=> setUser(userLoged)) */
   }
+  
+ /*  if(user === undefined) {
+    message.error('intente nuevamente')
+  }else {
+    message
+          .success(
+            `Logueo exitoso, bienvenido: ${user.name}. Espere a ser redirigido...`
+          )
+  }
+ */
+    //poner un then con una notificacion
+  
     return (
-        <div className="min-h-screen flex items-center justify-center bg-yellow-400">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-yellow-500 via-green-600 to-red-500 to-red-500">
 
     
         <div className="bg-white p-16 rounded shadow-2xl w-2/3">
@@ -46,6 +63,6 @@ const Login = () => {
       
       </div>
     )
-}
+    }
 
 export default Login
