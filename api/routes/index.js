@@ -5,6 +5,10 @@ const products= require('./products')
 const admin= require('./admin')
 const users= require('./users')
 const { checkAuthAdmin, checkAuth } = require("../middleware/auth");
+var cors = require("cors");
+
+router.use(cors());
+
 // /api/
 
 //PRODUCTS

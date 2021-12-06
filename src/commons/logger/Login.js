@@ -1,5 +1,5 @@
-import {React, useState} from 'react'
-import {postUserLoged, setUser} from "../../state/registration"
+import {React} from 'react'
+import {postUserLoged} from "../../state/registration"
 import { useDispatch } from "react-redux";
 import useInput from "../../hook/useInput"
 import { useNavigate } from 'react-router-dom';
@@ -10,24 +10,21 @@ const Login = () => {
   const email = useInput("");
   const password = useInput("");
   const dispatch = useDispatch();
-  const [user, setUser]= useState({})
+  
 
    const handleSubmit = (event) => {
     event.preventDefault()
     dispatch(postUserLoged({email: email.value, password: password.value}))
-   /*  .then(({payload})=> payload)
-    .then((userLoged)=> setUser(userLoged)) */
+    .then((data) => {
+      if(data.type === 'userLoged/fulfilled'){
+        navigate('/')
+      } else if(data.type === 'userLoged/rejected'){
+        message.error(`Fallo en el logueo, intente nuevamente`)
+      }
+    })
   }
   
- /*  if(user === undefined) {
-    message.error('intente nuevamente')
-  }else {
-    message
-          .success(
-            `Logueo exitoso, bienvenido: ${user.name}. Espere a ser redirigido...`
-          )
-  }
- */
+ 
     //poner un then con una notificacion
   
     return (
