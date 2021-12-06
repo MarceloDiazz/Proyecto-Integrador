@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const postUserLoged = createAsyncThunk("userLoged", (user) => {
     console.log("LOGIN", user);
-    return axios.post(`/api/auth/login`, user).then((res) => {
+    return axios.post(`http://localhost:3001/api/auth/login`, user).then((res) => {
         return res.data
     });
 });
@@ -32,7 +32,7 @@ const reducerRegistration = createReducer(
     {},
     {
         [setUser]: (state, action) => (state = action.payload),
-        [postUserLoged.fulfilled]: (state, action) => (action.payload),
+        [postUserLoged.fulfilled]: (state, action) => {state.user = action.payload},
         [postUserLoged.rejected]: (state, action) => console.log(action),
         [postUserRegister.fulfilled]: (state, action) => (state = {}),
         [sendLogoutRequest.fulfilled]: (state, action) => (state = {})
