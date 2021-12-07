@@ -2,10 +2,14 @@ import React from 'react'
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon } from '@heroicons/react/outline'
+import { useDispatch, useSelector } from "react-redux";
 const Modal = () => {
-    const [open, setOpen] = useState(true)
+  const productId= useSelector((state)=> state.products.singleProduct)
 
+  console.log("PRODUCT ID", productId);
+    const [open, setOpen] = useState(true)
     const cancelButtonRef = useRef(null)
+    
   
     return (
       <Transition.Root show={open} as={Fragment}>
@@ -48,8 +52,7 @@ const Modal = () => {
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          Are you sure you want to deactivate your account? All of your data will be permanently removed.
-                          This action cannot be undone.
+                          {productId}
                         </p>
                       </div>
                     </div>

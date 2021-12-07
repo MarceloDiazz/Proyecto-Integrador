@@ -1,5 +1,6 @@
 import React from 'react'
 const CardProducts = ({card}) => {
+
     return (
       <div key={card.id} className="group relative">
       <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">

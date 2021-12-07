@@ -1,6 +1,9 @@
 import { React, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 import {
+  getProducts,
+  getProductsByCategory,
   getProductsByLocation,
   getProductsCategory,
   getProductsLocation,
@@ -10,24 +13,32 @@ import { Link} from "react-router-dom";import Grid from "./Grid";
 
 
 const Sidebar = () => {
-
+  const {location}= useParams()
+  const {category} = useParams()
   //onclick que cuando el usuario haga click se haga un dispatch con el item
   //y en grid se absorba el valor
 
   //Use selector
   const usecategories= useSelector((state)=> state.products.categories)
   const uselocation= useSelector((state)=> state.products.location)
-console.log(uselocation);
+  const locations= useSelector((state)=> state.products.searchByLocation)
+  const categories= useSelector((state)=> state.products.searchByCategory)
+  const products = useSelector((state) => state.products.allProducts);
+
+
   //dispatch
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProductsCategory());
     dispatch(getProductsLocation());
+    dispatch(getProducts())
+    dispatch(getProductsByLocation(location))
+    dispatch(getProductsByCategory(category))
   }, []);
 
   
   return (
-    <div className=" flex justify-content: flex-start">
+    <div className=" flex justify-content:center">
       <div className="w-64 border-r border-gray-200 hidden md:block">
 
       <div className="text-center ">
@@ -56,7 +67,7 @@ console.log(uselocation);
     </div>
     </div>
       </div>
-      <Grid/>
+      <Grid locations={locations} categories={categories} products={products} />
     </div>
   );
 };

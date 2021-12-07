@@ -33,10 +33,10 @@ const App = () => {
     <Navbar/>
     <Sidebar/>
     <Routes> 
-    <Route  path="/" element={<Grid/>}/>
+    <Route  path="/" element={<Sidebar/>}/>
     <Route  path="/product/:id" element={<SingleProducts/>}/>
-    <Route  path="/category/:category" element={<Grid/>}/>
-    <Route  path="/location/:location" element={<Grid/>}/>
+    <Route  path="/category/:category" element={<Sidebar/>}/>
+    <Route  path="/location/:location" element={<Sidebar/>}/>
     <Route path="/login" element={<Login/>}/>
     <Route path="/register" element={<Register/>}/>
     </Routes>

@@ -53,6 +53,7 @@ const initialState = {
   allProducts: [],
   searchByCategory: [],
   searchByLocation: [],
+  getSingleProduct: []
 };
 
 const reducerProducts = createReducer(initialState, {
