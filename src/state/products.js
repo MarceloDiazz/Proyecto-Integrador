@@ -28,7 +28,6 @@ export const getSingleProduct = createAsyncThunk("getSingleProduct", (id) => {
 export const getProductsByCategory = createAsyncThunk(
   "searchByCategory",
   (category) => {
-    console.log("PASA CATEGORY?", category);
     return axios
       .get(`http://localhost:3001/api/products/category/${category}`)
       .then((res) => {

@@ -1,15 +1,13 @@
 import React from 'react'
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationIcon } from '@heroicons/react/outline'
-import { useDispatch, useSelector } from "react-redux";
-const Modal = () => {
-  const productId= useSelector((state)=> state.products.singleProduct)
+import { ExclamationIcon } from '@heroicons/react/outline'  
+const Modal = ({singleProduct}) => {
+ 
 
-  console.log("PRODUCT ID", productId);
     const [open, setOpen] = useState(true)
     const cancelButtonRef = useRef(null)
-    
+    console.log("SINGLE PRODUCT",singleProduct);
   
     return (
       <Transition.Root show={open} as={Fragment}>
@@ -24,7 +22,7 @@ const Modal = () => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              <Dialog.Overlay className="fixed inset-0 bg-gradient-to-r from-yellow-500 via-green-600 to-red-500 to-red-500 bg-opacity-75 transition-opacity" />
             </Transition.Child>
   
             {/* This element is to trick the browser into centering the modal contents. */}
@@ -52,7 +50,7 @@ const Modal = () => {
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          {productId}
+                          {singleProduct?.description}
                         </p>
                       </div>
                     </div>

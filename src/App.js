@@ -31,14 +31,16 @@ const App = () => {
 
       <div className="h-screen">
     <Navbar/>
-    <Sidebar/>
+    
     <Routes> 
     <Route  path="/" element={<Sidebar/>}/>
-    <Route  path="/product/:id" element={<SingleProducts/>}/>
     <Route  path="/category/:category" element={<Sidebar/>}/>
     <Route  path="/location/:location" element={<Sidebar/>}/>
-    <Route path="/login" element={<Login/>}/>
-    <Route path="/register" element={<Register/>}/>
+    <Route  path="/product/:id" element={<SingleProducts/>}/>
+    <Route  path="/login" element={<Login/>}/>
+    <Route  path="/register" element={<Register/>}/>
+
+  
     </Routes>
       </div>
     )

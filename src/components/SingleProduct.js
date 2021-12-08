@@ -6,21 +6,33 @@ import { ExclamationIcon } from '@heroicons/react/outline'
 import { useParams } from 'react-router-dom'
 import { getSingleProduct } from '../state/products';
 import Modal from "../commons/Modal"
+import axios from 'axios';
 
 const SingleProducts = () => {
   const {id}= useParams()
 
+/*   const [singleProduct, setSingleProduct]= useState([])
+
+  useEffect(()=>{
+    axios
+    .get(`/api/products/${id}`)
+    .then((res)=> setSingleProduct(res.data))
+  },[])
+
+console.log("PRODUCT", singleProduct); */
+
+  const singleProduct= useSelector((state)=> state.products.singleProduct)
 
 
   const dispatch= useDispatch()
   useEffect(()=>{
-    dispatch(getSingleProduct(id))
-  },[])
+   if(!singleProduct) dispatch(getSingleProduct(id))
+  },[singleProduct])
 
 
   return (
     <div>
-      <Modal/>
+      <Modal singleProduct={singleProduct}/>
     </div>
   )
 }

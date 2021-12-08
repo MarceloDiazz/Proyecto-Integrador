@@ -34,7 +34,7 @@ const Grid = ({locations, categories, products}) => {
  */
 
   return (
- <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+ <div className="mt-2 grid grid-cols-1 gap-y-5 gap-x-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-4">
           {locations[0] ? locations.map((data)=>(
               <CardProducts card={data}/>
           )): categories[0] ? categories.map((data)=>(
