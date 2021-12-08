@@ -35,7 +35,7 @@ const Navbar = () => {
                     </div>
                   </div>
                   <span className="text-2xl font-extrabold tracking-tight text-white">
-                    Inmobiliaria traslasierra
+                    DESTINO TRASLASIERRA 
                   </span>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">

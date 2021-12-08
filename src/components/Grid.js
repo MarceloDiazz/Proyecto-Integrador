@@ -9,9 +9,9 @@ import {
 import {useParams } from "react-router-dom";
 
 
-const Grid = ( ) => {
+const Grid = ({locations, categories, products}) => {
     //traer todos los prod, por cat y por loc
-    const locations= useSelector((state)=> state.products.searchByLocation)
+ /*    const locations= useSelector((state)=> state.products.searchByLocation)
     const categories= useSelector((state)=> state.products.searchByCategory)
     const products = useSelector((state) => state.products.allProducts);
 
@@ -22,7 +22,7 @@ const Grid = ( ) => {
   
 
     //traer el valor de los get
-    console.log("USERPARAMS GRID", location);
+
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(getProducts())
@@ -31,10 +31,10 @@ const Grid = ( ) => {
   
     }, []);
 
-
+ */
 
   return (
- <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+ <div className="mt-2 grid grid-cols-1 gap-y-5 gap-x-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-4">
           {locations[0] ? locations.map((data)=>(
               <CardProducts card={data}/>
           )): categories[0] ? categories.map((data)=>(
