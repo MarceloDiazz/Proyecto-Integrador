@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux";
-import { React } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { React, useEffect } from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import iconTrasla from "../assets/iconTrasla.png";
+import axios from "axios";
+import { sendLogoutRequest, setUser } from "../state/registration";
 
 const userNavigation = [
   { name: "Login", href: "/login" },
@@ -16,6 +18,17 @@ function classNames(...classes) {
 }
 const Navbar = () => {
   const user = useSelector((state) => state.registration.user);
+  const dispatch= useDispatch()
+
+
+
+  useEffect(()=>{
+    if(localStorage.getItem("user")){
+      dispatch(setUser(JSON.parse(localStorage.getItem("user"))))
+    }
+  },[])
+
+
 
   return (
     <>
@@ -80,15 +93,15 @@ const Navbar = () => {
                               : userLogued.map((item) => (
                                   <Menu.Item key={item.name}>
                                     {({ active }) => (
-                                      <a
-                                        href={item.href}
+                                      <button
+                                      onClick={(e)=>{e.preventDefault(); dispatch(sendLogoutRequest())}}
                                         className={classNames(
                                           active ? "bg-gray-100" : "",
                                           "block px-4 py-2 text-sm text-gray-700"
                                         )}
                                       >
                                         {item.name}
-                                      </a>
+                                      </button>
                                     )}
                                   </Menu.Item>
                                 ))}
@@ -135,7 +148,7 @@ const Navbar = () => {
                       <Disclosure.Button
                         key={item.name}
                         as="a"
-                        href={item.href}
+                        onClick={()=>{dispatch(sendLogoutRequest())}}
                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                       >
                         {item.name}
@@ -144,7 +157,7 @@ const Navbar = () => {
                       <Disclosure.Button
                         key={item.name}
                         as="a"
-                        href={item.href}
+                        onClick={(e)=>{e.preventDefault(); dispatch(sendLogoutRequest())}}
                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                       >
                         {item.name}

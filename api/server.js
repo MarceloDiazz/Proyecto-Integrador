@@ -14,8 +14,10 @@ const localStrategy = require("passport-local").Strategy;
 //MODELS
 
 const User = require("./models/User")
-const Products = require("./models/Products")
+const Products = require("./models/Products");
 
+const morgan = require("morgan");
+app.use(morgan("tiny"))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
