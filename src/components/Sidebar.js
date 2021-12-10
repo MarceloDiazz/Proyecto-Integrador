@@ -3,35 +3,47 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router";
 import {
   getProducts,
-  getProductsByCategory,
-  getProductsByLocation,
+/*   getProductsByCategory,
+  getProductsByLocation, */
   getProductsCategory,
   getProductsLocation,
 } from "../state/products";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import Grid from "./Grid";
-const Sidebar = () => {
-  const { location } = useParams();
-  const { category } = useParams();
-  //onclick que cuando el usuario haga click se haga un dispatch con el item
-  //y en grid se absorba el valor
+const Sidebar = ({}) => {
 
-  //Use selector
-  const usecategories = useSelector((state) => state.products.categories);
-  const uselocation = useSelector((state) => state.products.location);
+  const {type, name} = useParams();
+
+ //useselectors
+  const filterCategories = useSelector((state) => state.products.categories);
+  const filterLocation = useSelector((state) => state.products.location);
   const locations = useSelector((state) => state.products.searchByLocation);
   const categories = useSelector((state) => state.products.searchByCategory);
   const products = useSelector((state) => state.products.allProducts);
- console.log(products);
+
   //dispatch
   const dispatch = useDispatch();
   useEffect(() => {
+
+ //Traerme el listado para filtar   
     dispatch(getProductsCategory());
     dispatch(getProductsLocation());
+
+//traerme todos los productos
     dispatch(getProducts());
-    dispatch(getProductsByLocation(location));
-    dispatch(getProductsByCategory(category));
-  }, []);
+
+//Listar por location o categoria
+ /*  if ( type === "location"){
+
+    dispatch(getProductsByLocation(name))
+  }
+    else if (type === "category"){
+
+      dispatch(getProductsByCategory(name));
+    } */
+  }, [type,name]);
+
+ 
 
   return (
     <div className="min-h-screem flex">
@@ -43,9 +55,9 @@ const Sidebar = () => {
       <div>
         <h6 className="flex justify-center border bg-green-400">Ubicacion</h6>
         <div>
-          {uselocation.map((item) => (
+          {filterLocation.map((item) => (
             <ul>
-            <Link to={`location/${item}`}><li className="flex justify-center border p-4">{item}</li> </Link>
+            <Link to={`/location/${item}`}><li className="flex justify-center border p-4">{item}</li> </Link>
             </ul>
           ))}
         </div>
@@ -53,9 +65,9 @@ const Sidebar = () => {
       <div>
         <h6 className="flex justify-center border bg-green-400">Categoria</h6>
         <div>
-          {usecategories.map((item) => (  
+          {filterCategories.map((item) => (  
             <ul>
-             <Link to={`category/${item}`}> <li className="flex justify-center border p-4">{item}</li></Link>
+             <Link to={`/category/${item}`}> <li className="flex justify-center border p-4">{item}</li></Link>
             </ul>
           ))}
         </div>

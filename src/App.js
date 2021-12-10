@@ -8,37 +8,25 @@ import { Route, Routes} from "react-router";
 /* import {useSelector} from "react-redux"
 import { setUser } from './state/registration' */
 import SingleProducts from './components/SingleProduct'
-import Grid from './components/Grid'
+import Filter from './components/Filter'
+
+
 
 
 
 const App = () => {
-  /* const user= useSelector((state)=> state.registration.user)
 
-  console.log("SET USER", setUser(user));
- const setLocalStorage= ()=>{
-    try{
-      setUser(user)
-      window.localStorage("user", user)
-    }catch(error){
-      console.error(error);
-    }
-  } */ 
-  //aislar sidebar ***
-  //componente grid
-  //mapear y renderizar en card
+
     return (
 
       <div className="h-screen">
     <Navbar/>
-    
     <Routes> 
     <Route  path="/" element={<Sidebar/>}/>
-    <Route  path="/category/:category" element={<Sidebar/>}/>
-    <Route  path="/location/:location" element={<Sidebar/>}/>
-    <Route  path="/product/:id" element={<SingleProducts/>}/>
     <Route  path="/login" element={<Login/>}/>
     <Route  path="/register" element={<Register/>}/>
+    <Route  path="/:type/:name" element={<Filter/>}/>
+    <Route  path="/product/:id" element={<SingleProducts/>}/>
 
   
     </Routes>

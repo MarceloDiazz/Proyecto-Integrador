@@ -39,9 +39,18 @@ router.post("/register", (req, res, next) => {
   });
 });
 router.get("/logout", (req, res) => {
-  res.sendStatus(req.logout()).send(200);
+  res.status(200).send(req.logout());
 
 });
+
+router.get("/me", (req, res) => {
+  if (req.user){
+    res.send(req.user)
+  } else {
+    res.sendStatus(401)
+  }
+  
+})
 
 /* LOGIN */
 

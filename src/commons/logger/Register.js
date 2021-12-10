@@ -1,10 +1,12 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {postUserRegister} from "../../state/registration"
 import { useDispatch } from "react-redux";
+import { message } from "antd";
 import useInput from "../../hook/useInput"
 
 const Register = () => {
+  const navigate = useNavigate();
   const name = useInput("");
   const email = useInput("");
   const password = useInput("");
@@ -13,6 +15,13 @@ const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
     dispatch(postUserRegister({name: name.value,email: email.value, password: password.value}))
+    .then((data) => {
+      if(data.type === 'userRegister/fulfilled'){
+        navigate('/login')
+      } else if(data.type === 'userRegister/rejected'){
+        message.error(`Fallo en el registro, intente nuevamente`)
+      }
+    })
     //poner un then con una notificacion
   }
     return (
