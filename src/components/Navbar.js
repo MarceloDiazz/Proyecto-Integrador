@@ -4,7 +4,6 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import iconTrasla from "../assets/iconTrasla.png";
-import axios from "axios";
 import { sendLogoutRequest, setUser } from "../state/registration";
 
 const userNavigation = [
@@ -18,17 +17,13 @@ function classNames(...classes) {
 }
 const Navbar = () => {
   const user = useSelector((state) => state.registration.user);
-  const dispatch= useDispatch()
+  const dispatch = useDispatch();
 
-
-
-  useEffect(()=>{
-    if(localStorage.getItem("user")){
-      dispatch(setUser(JSON.parse(localStorage.getItem("user"))))
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
     }
-  },[])
-
-
+  }, []);
 
   return (
     <>
@@ -48,7 +43,8 @@ const Navbar = () => {
                     </div>
                   </div>
                   <span className="text-2xl font-extrabold tracking-tight text-white">
-                    DESTINO TRASLASIERRA 
+                    {user?.admin === true ?
+                    "HOLA ADMIN" : "DESTINO TRASLASIERRA"}
                   </span>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
@@ -94,7 +90,10 @@ const Navbar = () => {
                                   <Menu.Item key={item.name}>
                                     {({ active }) => (
                                       <button
-                                      onClick={(e)=>{e.preventDefault(); dispatch(sendLogoutRequest())}}
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          dispatch(sendLogoutRequest());
+                                        }}
                                         className={classNames(
                                           active ? "bg-gray-100" : "",
                                           "block px-4 py-2 text-sm text-gray-700"
@@ -144,25 +143,33 @@ const Navbar = () => {
                     </div>
                   </div>
                   <div className="mt-3 px-2 space-y-1">
-                    {!user ? userNavigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        onClick={()=>{dispatch(sendLogoutRequest())}}
-                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                      >
-                        {item.name}
-                      </Disclosure.Button>
-                    )):userLogued.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        onClick={(e)=>{e.preventDefault(); dispatch(sendLogoutRequest())}}
-                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                      >
-                        {item.name}
-                      </Disclosure.Button>
-                    ))}
+                    {!user
+                      ? userNavigation.map((item) => (
+                          <Disclosure.Button
+                            key={item.name}
+                            href={item.href}
+                            as="a"
+                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                          >
+                            {item.name}
+                          </Disclosure.Button>
+                        ))
+                      : userLogued.map((item) => (
+                          <Disclosure.Button
+                            key={item.name}
+                            as="a"
+                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                          >
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                dispatch(sendLogoutRequest());
+                              }}
+                            >
+                              {item.name}
+                            </button>
+                          </Disclosure.Button>
+                        ))}
                   </div>
                 </div>
               </Disclosure.Panel>

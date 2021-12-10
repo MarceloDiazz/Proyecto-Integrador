@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router";
 import {
   getProducts,
-  getProductsByCategory,
-  getProductsByLocation,
+/*   getProductsByCategory,
+  getProductsByLocation, */
   getProductsCategory,
   getProductsLocation,
 } from "../state/products";
 import { Link} from "react-router-dom";
 import Grid from "./Grid";
-const Sidebar = () => {
+const Sidebar = ({}) => {
 
   const {type, name} = useParams();
 
@@ -33,14 +33,14 @@ const Sidebar = () => {
     dispatch(getProducts());
 
 //Listar por location o categoria
-  if ( type === "location"){
+ /*  if ( type === "location"){
 
     dispatch(getProductsByLocation(name))
   }
     else if (type === "category"){
 
       dispatch(getProductsByCategory(name));
-    }
+    } */
   }, [type,name]);
 
  

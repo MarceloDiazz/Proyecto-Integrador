@@ -4,21 +4,28 @@ import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import { getProductsByCategory, getProductsByLocation } from '../state/products'
 import Grid from './Grid'
+import Sidebar from './Sidebar'
 
 const Filter = () => {
     const dispatch= useDispatch()
     const {type, name}= useParams()
-
-    const locations = useSelector((state) => state.products.searchByLocation);
+    
     useEffect(()=>{
-        type === "location" ? dispatch(getProductsByLocation(name))
-        : dispatch(getProductsByCategory(name))
+        if ( type === "location"){
+
+            dispatch(getProductsByLocation(name))
+          }
+            else if (type === "category"){
+        
+              dispatch(getProductsByCategory(name));
+            }
     },[type, name])
 
-    console.log(locations);
+
+   
     return (
         <div>
-            <Grid locations={locations} /> 
+            <Sidebar/> 
         </div>
     )
 }
