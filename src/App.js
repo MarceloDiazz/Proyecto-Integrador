@@ -9,6 +9,9 @@ import { Route, Routes} from "react-router";
 import { setUser } from './state/registration' */
 import SingleProducts from './components/SingleProduct'
 import Filter from './components/Filter'
+import GridUsers from './components/admin/GridUsers'
+import Product from './components/admin/Product'
+
 
 
 
@@ -27,7 +30,8 @@ const App = () => {
     <Route  path="/register" element={<Register/>}/>
     <Route  path="/:type/:name" element={<Filter/>}/>
     <Route  path="/product/:id" element={<SingleProducts/>}/>
-
+    <Route  path="/admin/users" element={<GridUsers/>}/>
+    <Route  path="/admin/product" element={<Product/>}/>
   
     </Routes>
       </div>

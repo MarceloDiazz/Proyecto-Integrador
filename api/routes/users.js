@@ -7,7 +7,7 @@ require("../models/asociations");
 router.use(cors());
 
 
-  
+
 
 router.get("/", (req, res, next) => {
     User.findAll({

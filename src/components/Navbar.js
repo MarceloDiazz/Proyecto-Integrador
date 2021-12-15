@@ -5,12 +5,13 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import iconTrasla from "../assets/iconTrasla.png";
 import { sendLogoutRequest, setUser } from "../state/registration";
+import { Link } from "react-router-dom";
 
 const userNavigation = [
   { name: "Login", href: "/login" },
   { name: "Sign Up", href: "/register" },
 ];
-const userLogued = [{ name: "Logout", href: "#" }];
+const userLogued = [{ name: "Logout"}];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -27,7 +28,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="">
+      <div className="sticky top-0 z-50">
         <Disclosure as="nav" className="bg-green-800">
           {({ open }) => (
             <>
@@ -35,16 +36,19 @@ const Navbar = () => {
                 <div className="flex items-center justify-between h-16">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
+                      <Link to="/">
                       <img
                         className="h-12 w-12"
                         src={iconTrasla}
                         alt="Workflow"
                       />
+                   </Link>
                     </div>
                   </div>
                   <span className="text-2xl font-extrabold tracking-tight text-white">
-                    {user?.admin === true ?
-                    "HOLA ADMIN" : "DESTINO TRASLASIERRA"}
+                    {user?.admin === true
+                      ? "HOLA ADMIN"
+                      : "DESTINO TRASLASIERRA"}
                   </span>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
@@ -52,7 +56,6 @@ const Navbar = () => {
                       <Menu as="div" className="ml-3 relative">
                         <div>
                           <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                            <span className="sr-only">Open user menu</span>
                             <img
                               className="h-11 w-11 rounded-full"
                               src="https://banner2.cleanpng.com/20200318/tei/transparent-man-icon-bald-icon-avatars-icon-5e725abb012853.5441655315845526350047.jpg"
@@ -77,7 +80,7 @@ const Navbar = () => {
                                       <a
                                         href={item.href}
                                         className={classNames(
-                                          active ? "bg-gray-100" : "",
+                                          active ? "bg-yellow-300" : "",
                                           "block px-4 py-2 text-sm text-gray-700"
                                         )}
                                       >

@@ -11,7 +11,14 @@ Products.belongsTo(User,{as:'products'});
 
 
 //FAVORITES: una propiedad tenga muchos usuarios favoritos
-User.belongsToMany(Products, { through: "user_fav" });
-Products.belongsToMany(User, { through: "user_fav" });
+User.belongsToMany(Products, {as:"User", foreignKey:"UserId", through: "Favorites" });
+Products.belongsToMany(User, {as:"Product", foreignKey:"ProductId", through: "Favorites" });
 
 
+
+/* async favoritesUser(){
+    try{
+        const user= await User.findOne()
+        const product= await Products.findOne({where: {  }})
+    }
+} */

@@ -33,15 +33,15 @@ Products.init(
         type: S.STRING,
         allowNull: false
     },
-    avalible: {
+   /*  avalible: {
       type: S.BOOLEAN,
       defaultValue: true,
-    },
+    } */
     category: {
       type: S.STRING,
       allowNull: false,
     },
-    stock: {
+    /* stock: {
       type: S.INTEGER,
       defaultValue: 0,
       set(valor){
@@ -51,7 +51,7 @@ Products.init(
           return this.setDataValue('stock', valor)
         }
       }
-    },
+    } */
   },
   { sequelize: db, modelName: "products" }
 );
