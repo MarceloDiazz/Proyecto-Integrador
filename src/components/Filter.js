@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
-import { getProductsByCategory, getProductsByLocation } from '../state/products'
+import { getProducts, getProductsByCategory, getProductsByLocation } from '../state/products'
 import Grid from './Grid'
 import Sidebar from './Sidebar'
 
@@ -15,10 +15,8 @@ const Filter = () => {
 
             dispatch(getProductsByLocation(name))
           }
-            else if (type === "category"){
         
               dispatch(getProductsByCategory(name));
-            }
     },[type, name])
 
 

@@ -8,7 +8,7 @@ router.use(cors());
 //ACA HACER LO DE LAS CATEGORIAS
 //encontrar todos los products
 router.get("/", (req, res, next) => {
-  Products.findAll({ where: { avalible: true } })
+  Products.findAll()
     .then((data) => res.send(data))
     .catch(next);
 });

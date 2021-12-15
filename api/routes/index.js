@@ -18,7 +18,7 @@ router.use('/products', products)
 //USERS (passport, rol admin)
 router.use('/users', users)
 router.use('/auth', auth)
-router.use('/admin',checkAuthAdmin, admin)
+router.use('/admin', admin)
 
 //PROBANDO RUTA
 router.get('/',(req, res)=>{
