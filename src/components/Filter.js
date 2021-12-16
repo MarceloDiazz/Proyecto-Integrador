@@ -7,6 +7,7 @@ import Grid from './Grid'
 import Sidebar from './Sidebar'
 
 const Filter = () => {
+
     const dispatch= useDispatch()
     const {type, name}= useParams()
     

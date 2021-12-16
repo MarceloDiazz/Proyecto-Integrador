@@ -20,11 +20,13 @@ const Navbar = () => {
   const user = useSelector((state) => state.registration.user);
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     if (localStorage.getItem("user")) {
       dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
-    }
+    }                      
   }, []);
+
 
   return (
     <>

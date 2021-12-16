@@ -49,9 +49,9 @@ export const getProductsByLocation = createAsyncThunk(
 
 export const updateProduct = createAsyncThunk(
   "upProduct",
-  (id) => {
+  ({id, product}) => {
     return axios
-      .put(`http://localhost:3001/api/admin/products/update/${id}`)
+      .put(`http://localhost:3001/api/admin/products/update/${id}`, product)
       .then((res) => res.data);
   }
 );
@@ -62,6 +62,19 @@ export const deleteProduct = createAsyncThunk ("delProduct", (id)=>{
 })
 
 
+export const postProduct = createAsyncThunk ("postProduct", (product)=>{
+  return axios
+  .post(`http://localhost:3001/api/admin/products`, product)
+  .then((res) => {
+    return res.data;
+})
+.catch((err) => {
+    console.log({err});
+});
+})
+
+
+
 const initialState = {
   categories: [],
   location: [],
@@ -70,7 +83,8 @@ const initialState = {
   searchByLocation: [],
   getSingleProduct: [],
   updateProduct: [],
-  deleteProduct: []
+  deleteProduct: [],
+  postProduct:[]
 };
 
 const reducerProducts = createReducer(initialState, {
@@ -96,8 +110,9 @@ const reducerProducts = createReducer(initialState, {
     state.update = action.payload
   },
   [deleteProduct.fulfilled]: (state, action) => {
-    (state = {})
-  }
+    (state = {}) 
+  },
+  [postProduct.fulfilled]: (state, action) => (state = {})
 });
 
 export default reducerProducts;

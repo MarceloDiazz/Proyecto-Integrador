@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Navbar from "./components/Navbar"
 import Sidebar from './components/Sidebar'
@@ -17,8 +17,11 @@ import Product from './components/admin/Product'
 
 
 
-const App = () => {
 
+
+
+
+const App = () => {
 
     return (
 
