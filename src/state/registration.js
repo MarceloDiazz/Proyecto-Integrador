@@ -29,8 +29,15 @@ export const sendLogoutRequest = createAsyncThunk("LOGOUT", () => {
 
 export const getUsers = createAsyncThunk("users", () => {
     return axios.get("/api/users")
+    .then((users) => users);
+});
+
+/* export const getUser = createAsyncThunk("user", () => {
+    return axios.get("/api/auth/me")
     .then((user) => user);
 });
+ */
+
 //action
 export const setUser = createAction("SET_USER");
 
@@ -38,6 +45,7 @@ const reducerRegistration = createReducer(
     {},
     {
         [setUser]: (state, action) => {state.user = action.payload},
+        /* [getUser.fulfilled]: (state, action) => {state.user = action.payload}, */
         [postUserLoged.fulfilled]: (state, action) => {state.user = action.payload},
         [postUserLoged.rejected]: (state, action) => console.log(action),
         [postUserRegister.fulfilled]: (state, action) => (state = {}),
