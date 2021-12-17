@@ -3731,6 +3731,11 @@
   dependencies:
     "mimic-response" "^1.0.0"
 
+"clsx@^1.1.1":
+  "integrity" "sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA=="
+  "resolved" "https://registry.npmjs.org/clsx/-/clsx-1.1.1.tgz"
+  "version" "1.1.1"
+
 "co@^4.6.0":
   "integrity" "sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ="
   "resolved" "https://registry.npmjs.org/co/-/co-4.6.0.tgz"
@@ -4389,6 +4394,11 @@
   "version" "2.3.0"
   dependencies:
     "cssom" "~0.3.6"
+
+"csstype@^2.6.2":
+  "integrity" "sha512-ZVxXaNy28/k3kJg0Fou5MiYpp88j7H9hLZp8PDC3jV0WFjfH5E9xHb56L0W59cPbKbcHXeP4qyT8PrHp8t6LcQ=="
+  "resolved" "https://registry.npmjs.org/csstype/-/csstype-2.6.19.tgz"
+  "version" "2.6.19"
 
 "csstype@^3.0.2":
   "integrity" "sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA=="
@@ -6046,6 +6056,11 @@
     "ignore" "^5.1.4"
     "merge2" "^1.3.0"
     "slash" "^3.0.0"
+
+"goober@^2.0.35":
+  "integrity" "sha512-TkGCqHxE4g5DtdpwxFCi53bXRtvw0BoSgCihVSIOioe9kfkqin5wXG8BQKykN0tjzmxZJ81qU2KWinZf5qKVlw=="
+  "resolved" "https://registry.npmjs.org/goober/-/goober-2.1.1.tgz"
+  "version" "2.1.1"
 
 "got@^9.6.0":
   "integrity" "sha512-R7eWptXuGYxwijs0eV+v3o6+XH1IqVK8dJOEecQfTmkncw9AV4dcw/Dhxi8MdlqPthxxpZyizMzyg8RTmEsG+Q=="
@@ -10698,7 +10713,7 @@
     "strip-ansi" "6.0.0"
     "text-table" "0.2.0"
 
-"react-dom@*", "react-dom@^16 || ^17 || ^18", "react-dom@^16.3.0 || 17", "react-dom@^17.0.2", "react-dom@>= 16.9.0", "react-dom@>=16.0.0", "react-dom@>=16.8", "react-dom@>=16.8.0", "react-dom@>=16.9.0":
+"react-dom@*", "react-dom@^16 || ^17 || ^18", "react-dom@^16.3.0 || 17", "react-dom@^17.0.2", "react-dom@>= 16.9.0", "react-dom@>=16", "react-dom@>=16.0.0", "react-dom@>=16.8", "react-dom@>=16.8.0", "react-dom@>=16.9.0":
   "integrity" "sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"
   "version" "17.0.2"
@@ -10711,6 +10726,13 @@
   "integrity" "sha512-nQTTcUu+ATDbrSD1BZHr5kgSD4oF8OFjxun8uAaL8RwPBacGBNPf/yAuVVdx17N8XNzRDMrZ9XcKZHCjPW+9ew=="
   "resolved" "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.9.tgz"
   "version" "6.0.9"
+
+"react-hot-toast@^2.1.1":
+  "integrity" "sha512-Odrp4wue0fHh0pOfZt5H+9nWCMtqs3wdlFSzZPp7qsxfzmbE26QmGWIh6hG43CukiPeOjA8WQhBJU8JwtWvWbQ=="
+  "resolved" "https://registry.npmjs.org/react-hot-toast/-/react-hot-toast-2.1.1.tgz"
+  "version" "2.1.1"
+  dependencies:
+    "goober" "^2.0.35"
 
 "react-is@^16.12.0":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
@@ -10852,7 +10874,14 @@
   dependencies:
     "tslib" "^1.9.0"
 
-"react@*", "react@^16 || ^17 || ^18", "react@^16.14.0 || ^17.0.0", "react@^16.3.0 || 17", "react@^16.8.3 || ^17", "react@^17.0.2", "react@>= 16", "react@>= 16.9.0", "react@>=16.0.0", "react@>=16.8", "react@>=16.8.0", "react@>=16.9.0", "react@17.0.2":
+"react-toastify@^8.1.0":
+  "integrity" "sha512-M+Q3rTmEw/53Csr7NsV/YnldJe4c7uERcY7Tma9mvLU98QT2VhIkKwjBzzxZkJRk/oBKyUAtkyMjMgO00hx6gQ=="
+  "resolved" "https://registry.npmjs.org/react-toastify/-/react-toastify-8.1.0.tgz"
+  "version" "8.1.0"
+  dependencies:
+    "clsx" "^1.1.1"
+
+"react@*", "react@^16 || ^17 || ^18", "react@^16.14.0 || ^17.0.0", "react@^16.3.0 || 17", "react@^16.8.3 || ^17", "react@^17.0.2", "react@>= 16", "react@>= 16.9.0", "react@>=16", "react@>=16.0.0", "react@>=16.8", "react@>=16.8.0", "react@>=16.9.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

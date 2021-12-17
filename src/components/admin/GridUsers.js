@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUsers } from '../../state/registration'
-
+import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from 'react-router';
 
 const GridUsers = () => {
    /* 
@@ -11,6 +12,7 @@ const GridUsers = () => {
    -Localidad
    
    */
+   const navigate= useNavigate()
   const user= useSelector((state)=> state.registration.users)
   
   const dispatch= useDispatch()
@@ -21,7 +23,7 @@ const GridUsers = () => {
 
 
 
-  
+   
     return (
         <div className="flex flex-col">
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -74,11 +76,6 @@ const GridUsers = () => {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm text-gray-900">{person?.createdAt}</div>
                         </td>                      
-                        <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
-                          <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                            Edit
-                          </a>
-                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -86,6 +83,7 @@ const GridUsers = () => {
               </div>
             </div>
           </div>
+      
         </div>
       )
 }

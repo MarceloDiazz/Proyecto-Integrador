@@ -6,8 +6,9 @@ import { getProductsByCategory, getProductsByLocation } from "../state/products"
 
 
 
-const Grid = ({products}) => {
+const Grid = () => {
     //traer todos los prod, por cat y por loc
+    const products = useSelector((state) => state.products.allProducts);
     const locations = useSelector((state) => state.products.searchByLocation);
     const categories = useSelector((state) => state.products.searchByCategory);
 
