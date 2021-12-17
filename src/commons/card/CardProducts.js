@@ -1,14 +1,12 @@
 import React from "react";
-import {useNavigate} from "react-router"
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteProduct } from "../../state/products";
-import { message } from "antd";
 import { Toaster, toast } from "react-hot-toast";
 
 const CardProducts = ({ card }) => {
-
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   const user = useSelector((state) => state.registration.user);
   const dispatch = useDispatch();
   return (
@@ -35,19 +33,17 @@ const CardProducts = ({ card }) => {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                dispatch(deleteProduct(card.id))
-                .then((data)=>{
-                  if(data.type === 'delProduct/fulfilled'){
-                    toast.success('Elemento borrado exitosamente!', {
+                dispatch(deleteProduct(card.id)).then((data) => {
+                  if (data.type === "delProduct/fulfilled") {
+                    toast.success("Elemento borrado exitosamente!", {
                       duration: 2000,
-                      position: 'top-center',
-                      })
-                   setTimeout(() => {
-                     navigate('/')
-                     
-                   }, 1000);
+                      position: "top-center",
+                    });
+                    setTimeout(() => {
+                      navigate("/");
+                    }, 1000);
                   }
-                }) 
+                });
               }}
               className="text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded text-xs"
             >
@@ -90,18 +86,20 @@ const CardProducts = ({ card }) => {
       ) : (
         <p className="text-sm font-medium text-gray-900 flex justify-center mt-4">
           <Link to={`/product/${card.id}`}>
-            <button onClick={(()=> {
-              if (!user){
-                toast.error('Debes registrarte para acceder al producto', {
-                  duration: 4000,
-                  position: 'top-center',
-                  })
+            <button
+              onClick={() => {
+                if (!user) {
+                  toast.error("Debes registrarte para acceder al producto", {
+                    duration: 4000,
+                    position: "top-center",
+                  });
                   setTimeout(() => {
-                    navigate('/login')
-                    
+                    navigate("/login");
                   }, 5);
-              }
-            })}  className="ml-2 text-white bg-blue-500 border-0 py-2 px-3 focus:outline-none hover:bg-blue-600 rounded text-xs">
+                }
+              }}
+              className="ml-2 text-white bg-blue-500 border-0 py-2 px-3 focus:outline-none hover:bg-blue-600 rounded text-xs"
+            >
               Ver más{" "}
             </button>
           </Link>

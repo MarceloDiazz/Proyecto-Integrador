@@ -9,22 +9,21 @@ User.init(
     name: {
       type: S.STRING,
       allowNull: false,
-      validate:{
+      validate: {
         isAlpha: true,
-      }
+      },
     },
     email: {
       type: S.STRING,
       allowNull: false,
-      validate:{
+      validate: {
         isEmail: true,
-        
-      }
+      },
     },
     password: {
       type: S.STRING,
     },
-    admin:{
+    admin: {
       type: S.BOOLEAN,
       defaultValue: false,
     },

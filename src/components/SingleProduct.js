@@ -1,18 +1,16 @@
 import React, { useEffect } from "react";
-import useInput from "../hook/useInput"
-import {useNavigate} from "react-router"
+import useInput from "../hook/useInput";
+import { useNavigate } from "react-router";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getSingleProduct} from "../state/products";
+import { getSingleProduct } from "../state/products";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-import {useNameProduct} from "../hook/validate/product"
-
-
+import { useNameProduct } from "../hook/validate/product";
 
 const SingleProducts = () => {
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   const [edit, setEdit] = useState(true);
   const { id } = useParams();
   const user = useSelector((state) => state.registration.user);
@@ -23,42 +21,41 @@ const SingleProducts = () => {
   }, []);
 
   const { name, onChangeName, validateName } = useNameProduct();
-  
 
-  const image= useInput("")
-  const location= useInput("")
-  const category= useInput("")
-  const description = useInput("")
+  const image = useInput("");
+  const location = useInput("");
+  const category = useInput("");
+  const description = useInput("");
 
-  const handleClick= ((e)=>{
-      e.preventDefault()
-      const nameValidate = validateName();
-      
+  const handleClick = (e) => {
+    e.preventDefault();
+    const nameValidate = validateName();
 
-      if (nameValidate.error) return toast.error(nameValidate.message);
- 
-      axios
-      .put(`http://localhost:3001/api/admin/products/update/${id}`, {location: location.value, name: name, image: image.value, category:category.value,  description: description.value})
-      .then((data)=> {
-        if (data.status === 200){
-          toast.success('Elemento editado!, redirigiendo...', {
-            duration: 3000,
-            position: 'top-center',
-            })
-         setTimeout(() => {
-           navigate('/')
-           
-         }, 2000);
+    if (nameValidate.error) return toast.error(nameValidate.message);
 
-        }
- 
+    axios
+      .put(`http://localhost:3001/api/admin/products/update/${id}`, {
+        location: location.value,
+        name: name,
+        image: image.value,
+        category: category.value,
+        description: description.value,
       })
-      .catch((error)=> console.log({error}))
-  })
+      .then((data) => {
+        if (data.status === 200) {
+          toast.success("Elemento editado!, redirigiendo...", {
+            duration: 3000,
+            position: "top-center",
+          });
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+        }
+      })
+      .catch((error) => console.log({ error }));
+  };
 
- 
-return (
-
+  return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-3/5 mx-auto flex flex-wrap">
@@ -71,17 +68,17 @@ return (
             {user?.admin === true ? (
               <>
                 <input
-                    {...image}
+                  {...image}
                   className="w-full text-sm title-font text-gray-500 tracking-widest"
                   value={!edit ? null : singleProduct?.image}
                 />
                 <input
-                    {...location}
+                  {...location}
                   className="text-sm title-font text-gray-500 tracking-widest"
                   value={!edit ? null : singleProduct?.location}
                 />
-                 <input
-                    {...category}
+                <input
+                  {...category}
                   className="text-sm title-font text-gray-500 tracking-widest"
                   value={!edit ? null : singleProduct?.category}
                 />
@@ -135,27 +132,26 @@ return (
                     </button>
                   ) : (
                     <>
-                   
-                    <button
-                      className="mr-2 flex text-white bg-red-500 border-0 py-2 px-1 focus:outline-none hover:bg-red-700 rounded"
-                      onClick={() => setEdit(!edit)}
-                    >
-                      Descartar
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+                      <button
+                        className="mr-2 flex text-white bg-red-500 border-0 py-2 px-1 focus:outline-none hover:bg-red-700 rounded"
+                        onClick={() => setEdit(!edit)}
                       >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"
-                        />
-                      </svg>
-                    </button>
+                        Descartar
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"
+                          />
+                        </svg>
+                      </button>
                     </>
                   )}
 
@@ -182,20 +178,19 @@ return (
                 </>
               ) : (
                 <>
-                
-                <button className="flex text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded">
-                  Favoritos
-                  <svg
-                    fill="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    class="ml-2 w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-                  </svg>
-                </button>
+                  <button className="flex text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded">
+                    Favoritos
+                    <svg
+                      fill="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      class="ml-2 w-5 h-5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+                    </svg>
+                  </button>
                 </>
               )}
             </div>

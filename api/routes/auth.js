@@ -1,17 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const AuthController= require("../controllers/auth")
-const User = require('../models/User')
+const AuthController = require("../controllers/auth");
+const User = require("../models/User");
 var cors = require("cors");
 
 router.use(cors());
 
-//preguntar si es admin
+router.post("/login", passport.authenticate("local"), AuthController.userLoged);
 
-router.post("/login", passport.authenticate("local"), AuthController.userLoged)
-
-router.post("/register", (req, res, next)=>{
+router.post("/register", (req, res, next) => {
   const { email } = req.body;
   User.findOne({ where: { email } }).then((user) => {
     if (user) {
@@ -25,11 +23,8 @@ router.post("/register", (req, res, next)=>{
         .catch(next);
     }
   });
-})
-;
-router.get("/logout", AuthController.userLogout)
-
-
+});
+router.get("/logout", AuthController.userLogout);
 
 /* LOGIN */
 

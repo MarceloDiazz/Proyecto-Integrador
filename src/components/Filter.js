@@ -1,35 +1,29 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router'
-import { getProducts, getProductsByCategory, getProductsByLocation } from '../state/products'
-import Grid from './Grid'
-import Sidebar from './Sidebar'
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router";
+import {
+  getProductsByCategory,
+  getProductsByLocation,
+} from "../state/products";
+import Sidebar from "./Sidebar";
 
 const Filter = () => {
+  const dispatch = useDispatch();
+  const { type, name } = useParams();
 
-    const dispatch= useDispatch()
-    const {type, name}= useParams()
-    
-    useEffect(()=>{
+  useEffect(() => {
+    if (type === "location") {
+      dispatch(getProductsByLocation(name));
+    }
 
-        
+    dispatch(getProductsByCategory(name));
+  }, [type, name]);
 
-        if ( type === "location"){
+  return (
+    <div>
+      <Sidebar />
+    </div>
+  );
+};
 
-            dispatch(getProductsByLocation(name))
-          }
-        
-              dispatch(getProductsByCategory(name));
-    },[type, name])
-
-
-   
-    return (
-        <div>
-            <Sidebar/> 
-        </div>
-    )
-}
-
-export default Filter
+export default Filter;
