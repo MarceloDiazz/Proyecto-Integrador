@@ -12,6 +12,9 @@ const Filter = () => {
     const {type, name}= useParams()
     
     useEffect(()=>{
+
+        
+
         if ( type === "location"){
 
             dispatch(getProductsByLocation(name))

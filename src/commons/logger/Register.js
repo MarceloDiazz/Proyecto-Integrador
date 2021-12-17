@@ -3,21 +3,37 @@ import { Link, useNavigate } from "react-router-dom";
 import {postUserRegister} from "../../state/registration"
 import { useDispatch } from "react-redux";
 import { message } from "antd";
-import useInput from "../../hook/useInput"
+import {useName, useEmail, usePassword} from "../../hook/validate/logger"
+import { Toaster, toast } from 'react-hot-toast';
 
 const Register = () => {
   const navigate = useNavigate();
-  const name = useInput("");
-  const email = useInput("");
-  const password = useInput("");
+  const { name, onChangeName, validateName } = useName();
+  const { email, onChangeEmail, validateEmail } = useEmail();
+  const { password, onChangePassword, validatePassword } = usePassword();
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    dispatch(postUserRegister({name: name.value,email: email.value, password: password.value}))
+    const passwordValidate = validatePassword();
+    const emailValidate = validateEmail();
+    const nameValidate = validateName();
+
+    if (passwordValidate.error) return toast.error(passwordValidate.message);
+    if (emailValidate.error) return toast.error(emailValidate.message);
+    if (nameValidate.error) return toast.error(nameValidate.message);
+
+    dispatch(postUserRegister({name: name,email: email, password: password}))
     .then((data) => {
       if(data.type === 'userRegister/fulfilled'){
-        navigate('/login')
+        toast.success('Cuenta creada!, redirigiendo...', {
+          duration: 4000,
+          position: 'top-center',
+          })
+       setTimeout(() => {
+         navigate('/login')
+         
+       }, 4000);
       } else if(data.type === 'userRegister/rejected'){
         message.error(`Fallo en el registro, intente nuevamente`)
       }
@@ -37,13 +53,13 @@ const Register = () => {
             <div className="justify-center">
 
               <label className="block mb-1 font-bold text-gray-500">Name</label>
-              <input {...name} type="text" className="w-full border-2 border-gray-200 p-3 rounded outline-none focus:border-purple-500"/>
+              <input onChange={onChangeName} type="text" className="w-full border-2 border-gray-200 p-3 rounded outline-none focus:border-purple-500"/>
 
               <label className="block mb-1 font-bold text-gray-500">Email</label>
-              <input {...email} type="email" className="w-full border-2 border-gray-200 p-3 rounded outline-none focus:border-purple-500"/>
+              <input onChange={onChangeEmail} type="email" className="w-full border-2 border-gray-200 p-3 rounded outline-none focus:border-purple-500"/>
             
               <label  className="block mb-1 font-bold text-gray-500">Password</label>
-              <input {...password} type="password" className="w-full border-2 border-gray-200 p-3 rounded outline-none focus:border-purple-500"/>
+              <input onChange={onChangePassword} type="password" className="w-full border-2 border-gray-200 p-3 rounded outline-none focus:border-purple-500"/>
     
               <Link to="/login"><p className="border text-blue-400 hover:text-blue-700 font-bold text-center">Already have an account? Sign in</p></Link>
             </div>
@@ -53,7 +69,7 @@ const Register = () => {
           </form>
       
         </div>
-      
+      <Toaster />
       </div>
     )
 }

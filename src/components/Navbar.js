@@ -5,7 +5,9 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import iconTrasla from "../assets/iconTrasla.png";
 import { sendLogoutRequest, setUser } from "../state/registration";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {Toaster, toast} from "react-hot-toast"
+
 
 const userNavigation = [
   { name: "Login", href: "/login" },
@@ -16,10 +18,43 @@ const userLogued = [{ name: "Logout"}];
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+
+
+
+
 const Navbar = () => {
+  const navigate= useNavigate()
+  
   const user = useSelector((state) => state.registration.user);
   const dispatch = useDispatch();
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(sendLogoutRequest())
+    .then(()=> {
+      if (user?.admin === true){
+        toast.success('Chau admin!', {
+          duration: 4000,
+          position: 'top-center',
+          })
+          setTimeout(() => {
+            navigate('/')
+            
+          }, 100);
+      }
+      
+      toast.success('Gracias por visitarnos!', {
+        duration: 4000,
+        position: 'top-center',
+        })
+        setTimeout(() => {
+          navigate('/')
+          
+        }, 100);
+        
+    }
+    )
+    }
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -79,15 +114,16 @@ const Navbar = () => {
                               ? userNavigation.map((item) => (
                                   <Menu.Item key={item.name}>
                                     {({ active }) => (
-                                      <a
-                                        href={item.href}
+                                      <Link to={item.href} >
+                                      <button
                                         className={classNames(
                                           active ? "bg-yellow-300" : "",
                                           "block px-4 py-2 text-sm text-gray-700"
                                         )}
                                       >
                                         {item.name}
-                                      </a>
+                                      </button>
+                                      </Link>
                                     )}
                                   </Menu.Item>
                                 ))
@@ -95,10 +131,7 @@ const Navbar = () => {
                                   <Menu.Item key={item.name}>
                                     {({ active }) => (
                                       <button
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          dispatch(sendLogoutRequest());
-                                        }}
+                                        onClick={handleClick}
                                         className={classNames(
                                           active ? "bg-gray-100" : "",
                                           "block px-4 py-2 text-sm text-gray-700"
@@ -150,14 +183,16 @@ const Navbar = () => {
                   <div className="mt-3 px-2 space-y-1">
                     {!user
                       ? userNavigation.map((item) => (
+                        <Link to={item.href}>
                           <Disclosure.Button
                             key={item.name}
-                            href={item.href}
+                           
                             as="a"
                             className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                           >
                             {item.name}
                           </Disclosure.Button>
+                        </Link>  
                         ))
                       : userLogued.map((item) => (
                           <Disclosure.Button
@@ -166,10 +201,7 @@ const Navbar = () => {
                             className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                           >
                             <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                dispatch(sendLogoutRequest());
-                              }}
+                              onClick={handleClick}
                             >
                               {item.name}
                             </button>
@@ -182,6 +214,7 @@ const Navbar = () => {
           )}
         </Disclosure>
       </div>
+      <Toaster />
     </>
   );
 };

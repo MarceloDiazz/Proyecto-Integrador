@@ -53,7 +53,7 @@ const Product = () => {
               type="text"
               name="username"
               id="username"
-              placeholder="username"
+              placeholder="Nombre del producto"
             />
           </div>
           <div>
@@ -86,12 +86,11 @@ const Product = () => {
               placeholder="Descripcion del producto"
             />
           </div>
-
           <label for="company-size" class="text-gray-800 font-semibold block my-3 text-md ">Categorias:</label>
           <div class="mt-1 flex justify-between ">
           <div class="mt-1">
             <select name="company-size" id="company-size" class="rounded" {...category} >
-              <option value="">Tipo</option>
+              <option value="">Categoria</option>
               {  filterCategories?.map((category)=>       
                     <option value={category}>{category}</option>
                  )}
@@ -99,7 +98,7 @@ const Product = () => {
           </div>
           <div class="mt-1">
           <select name="company-size" id="company-size" class="rounded" {...location} >
-              <option value="">Tipo</option>
+              <option value="">Ubicacion</option>
               { filterLocation?.map((location)=>       
                     <option value={location}>{location}</option>
                  )}

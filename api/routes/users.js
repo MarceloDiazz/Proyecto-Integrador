@@ -1,36 +1,20 @@
 const express = require("express");
 const router = express.Router();
 var cors = require("cors");
-const User= require("../models/User")
-const Products = require("../models/Products");
+const UserController = require ("../controllers/users")
+
+/* const User= require("../models/User")
+const Products = require("../models/Products"); */
 require("../models/asociations");
 router.use(cors());
 
 
 
 
-router.get("/", (req, res, next) => {
-    User.findAll({
-      include: [
-        {
-          model: Products,
-          as: "products",
-          attributes: ["name", "location", "image", "price"],
-        },
-      ],
-    })
-      .then((data) => res.send(data))
-      .catch(next);
-  });
+router.get("/", UserController.allUsers)
+router.delete('/delete/:id', UserController.deleteUsers )
+  
 
-
-  router.delete('/delete/:id', (req, res) => {
-    let id= req.params.id;
-    User.destroy({where:{
-        id:id
-    }})
-    .then(() => {res.sendStatus(201)})
-})
 
 
 

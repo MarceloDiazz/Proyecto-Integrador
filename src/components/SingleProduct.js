@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import useInput from "../hook/useInput"
 import {useNavigate} from "react-router"
-import { Fragment, useRef, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationIcon } from "@heroicons/react/outline";
 import { useParams } from "react-router-dom";
-import { getSingleProduct, updateProduct } from "../state/products";
-import axios, { Axios } from "axios";
+import { getSingleProduct} from "../state/products";
+import axios from "axios";
+import { Toaster, toast } from "react-hot-toast";
+import {useNameProduct} from "../hook/validate/product"
+
+
 
 const SingleProducts = () => {
   const navigate= useNavigate()
@@ -20,24 +22,41 @@ const SingleProducts = () => {
     dispatch(getSingleProduct(id));
   }, []);
 
+  const { name, onChangeName, validateName } = useNameProduct();
+  
+
   const image= useInput("")
   const location= useInput("")
-  const name= useInput("")
-  const description= useInput("")
-
-
+  const category= useInput("")
+  const description = useInput("")
 
   const handleClick= ((e)=>{
       e.preventDefault()
+      const nameValidate = validateName();
+      
+
+      if (nameValidate.error) return toast.error(nameValidate.message);
+ 
       axios
-      .put(`http://localhost:3001/api/admin/products/update/${id}`, {location: location.value, name: name.value, image: image.value, description: description.value})
-      .then((res)=> res.data)
+      .put(`http://localhost:3001/api/admin/products/update/${id}`, {location: location.value, name: name, image: image.value, category:category.value,  description: description.value})
+      .then((data)=> {
+        if (data.status === 200){
+          toast.success('Elemento editado!, redirigiendo...', {
+            duration: 3000,
+            position: 'top-center',
+            })
+         setTimeout(() => {
+           navigate('/')
+           
+         }, 2000);
+
+        }
+ 
+      })
       .catch((error)=> console.log({error}))
   })
 
- if(!user){
-   navigate('/login')
- }
+ 
 return (
 
     <section className="text-gray-600 body-font overflow-hidden">
@@ -61,13 +80,18 @@ return (
                   className="text-sm title-font text-gray-500 tracking-widest"
                   value={!edit ? null : singleProduct?.location}
                 />
+                 <input
+                    {...category}
+                  className="text-sm title-font text-gray-500 tracking-widest"
+                  value={!edit ? null : singleProduct?.category}
+                />
                 <input
-                    {...name}
+                  onChange={onChangeName}
                   className="text-gray-900 text-3xl title-font font-medium mb-1"
                   value={!edit ? null : singleProduct?.name}
                 />
                 <textarea
-                    {...description}
+                  {...description}
                   className="leading-relaxed h-40 w-full"
                   value={!edit ? null : singleProduct?.description}
                 />
@@ -178,6 +202,7 @@ return (
           </div>
         </div>
       </div>
+      <Toaster />
     </section>
   );
 };

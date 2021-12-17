@@ -2,8 +2,8 @@ import {React} from 'react'
 import {postUserLoged} from "../../state/registration"
 import { useDispatch } from "react-redux";
 import useInput from "../../hook/useInput"
+import {Toaster, toast} from "react-hot-toast"
 import { Link, useNavigate } from 'react-router-dom';
-import { message } from "antd";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,9 +17,21 @@ const Login = () => {
     dispatch(postUserLoged({email: email.value, password: password.value}))
     .then((data) => {
       if(data.type === 'userLoged/fulfilled'){
-        navigate('/')
+
+        toast.success('Logueo exitoso!, redirigiendo...', {
+          duration: 4000,
+          position: 'top-center',
+          })
+       setTimeout(() => {
+         navigate('/')
+         
+       }, 4000);
       } else if(data.type === 'userLoged/rejected'){
-        message.error(`Fallo en el logueo, intente nuevamente`)
+        toast.error('Error Login :( , verifica correo y/o contraseña', {
+          duration: 4000,
+          position: 'top-center',
+          })
+          
       }
     })
   }
@@ -54,7 +66,7 @@ const Login = () => {
           </form>
       
         </div>
-      
+      <Toaster />
       </div>
     )
     }

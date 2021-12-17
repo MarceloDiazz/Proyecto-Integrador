@@ -15,16 +15,16 @@ const Sidebar = () => {
   const user = useSelector((state) => state.registration.user);
   const filterCategories = useSelector((state) => state.products.categories);
   const filterLocation = useSelector((state) => state.products.location);
-  const products = useSelector((state) => state.products.allProducts);
+  
   //dispatch
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(getProducts())
     //Traerme el listado para filtar
     dispatch(getProductsCategory());
     dispatch(getProductsLocation());
 
-    //traerme todos los productos
-    dispatch(getProducts());
+
   }, []);
 
  
@@ -96,7 +96,7 @@ const Sidebar = () => {
         )}
       </div>
       <div className="p-10 pt-10">
-        <Grid products={products} />
+        <Grid />
       </div>
     </div>
   );
