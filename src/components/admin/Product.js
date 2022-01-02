@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import useInput from "../../hook/useInput";
+import { Toaster, toast } from "react-hot-toast";
 import {
-  getProductsCategory,
-  getProductsLocation,
   postProduct,
 } from "../../state/products";
 
@@ -13,6 +13,10 @@ const Product = () => {
   const description = useInput("");
   const category = useInput("");
   const location = useInput("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const filterCategories = useSelector((state) => state.products.categories);
+  const filterLocation = useSelector((state) => state.products.location);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,18 +28,20 @@ const Product = () => {
         image: image.value,
         category: category.value,
       })
-    );
+    )
+    .then((data) => {
+      if (data.type === 'postProduct/fulfilled') {
+        toast.success("Producto creado!, redirigiendo...", {
+          duration: 2000,
+          position: "top-center",
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      }  
+    })
   };
-
-  const dispatch = useDispatch();
-  const filterCategories = useSelector((state) => state.products.categories);
-  const filterLocation = useSelector((state) => state.products.location);
-  useEffect(() => {
-    //Traerme el listado para filtar
-    dispatch(getProductsCategory());
-    dispatch(getProductsLocation());
-  }, []);
-
+  
   return (
     <div class="h-screen bg-indigo-100 flex justify-center items-center">
       <div class="lg:w-2/5 md:w-1/2 w-2/3">
@@ -135,6 +141,7 @@ const Product = () => {
           </button>
         </form>
       </div>
+      <Toaster />
     </div>
   );
 };

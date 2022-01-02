@@ -2,13 +2,28 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteProduct } from "../../state/products";
+import { deleteProduct, getProducts } from "../../state/products";
 import { Toaster, toast } from "react-hot-toast";
 
 const CardProducts = ({ card }) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.registration.user);
   const dispatch = useDispatch();
+
+  const handleDelete= ((e)=>{
+      e.preventDefault();
+      dispatch(deleteProduct(card.id))
+      .then((data) => {
+        if (data.type === "delProduct/fulfilled") {
+          toast.success("Elemento borrado exitosamente!", {
+            duration: 2000,
+            position: "top-center",
+          });       
+        }
+      })
+      .then(()=> dispatch(getProducts()))
+  })
+
   return (
     <div key={card.id} className="group relative">
       <div className="w-full  min-h-50 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-40 lg:aspect-none">
@@ -28,23 +43,10 @@ const CardProducts = ({ card }) => {
         </div>
       </div>
       {user?.admin === true ? (
-        <div>
+        <div> 
           <p className="text-sm font-medium text-gray-900 flex mt-2 justify-center">
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(deleteProduct(card.id)).then((data) => {
-                  if (data.type === "delProduct/fulfilled") {
-                    toast.success("Elemento borrado exitosamente!", {
-                      duration: 2000,
-                      position: "top-center",
-                    });
-                    setTimeout(() => {
-                      navigate("/");
-                    }, 1000);
-                  }
-                });
-              }}
+              onClick={handleDelete}
               className="text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded text-xs"
             >
               <svg

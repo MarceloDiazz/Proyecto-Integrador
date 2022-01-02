@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import useInput from "../hook/useInput";
+import useInputImage from "../hook/product/useInputImage";
+import useInputLocation from "../hook/product/useInputLocation";
+
+import useInputCategory from "../hook/product/useInputCategory";
+import useInputDescription from "../hook/product/useInputDescription";
+
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,27 +12,43 @@ import { useParams } from "react-router-dom";
 import { getSingleProduct } from "../state/products";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-import { useNameProduct } from "../hook/validate/product";
+import { useInputName } from "../hook/product/useInputName";
+
 
 const SingleProducts = () => {
   const navigate = useNavigate();
   const [edit, setEdit] = useState(true);
   const { id } = useParams();
   const user = useSelector((state) => state.registration.user);
+
+
   const singleProduct = useSelector((state) => state.products.singleProduct);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getSingleProduct(id));
-  }, []);
+  }, [dispatch, id]);
 
-  const { name, onChangeName, validateName } = useNameProduct();
+ 
 
-  const image = useInput("");
-  const location = useInput("");
-  const category = useInput("");
-  const description = useInput("");
+  const { name, onChangeName, validateName } = useInputName();
+  const image = useInputImage("")
+  const location = useInputLocation("");
+  const category = useInputCategory("");
+  const description = useInputDescription("");
 
-  const handleClick = (e) => {
+  
+  const handleFavoriteClick= (e)=>{
+    axios.post("http://localhost:3001/api/favorites",{
+      userId:user?.id,
+      name: singleProduct?.name,
+      description:singleProduct?.description,
+      image: singleProduct?.image
+    })
+
+  }
+
+
+  const handleClickSave = (e) => {
     e.preventDefault();
     const nameValidate = validateName();
 
@@ -44,12 +65,12 @@ const SingleProducts = () => {
       .then((data) => {
         if (data.status === 200) {
           toast.success("Elemento editado!, redirigiendo...", {
-            duration: 3000,
+            duration: 2000,
             position: "top-center",
           });
           setTimeout(() => {
             navigate("/");
-          }, 2000);
+          }, 1000);
         }
       })
       .catch((error) => console.log({ error }));
@@ -139,7 +160,7 @@ const SingleProducts = () => {
                         Descartar
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          class="h-6 w-6"
+                          className="h-6 w-6"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -157,12 +178,12 @@ const SingleProducts = () => {
 
                   <button
                     className="flex text-white bg-green-500 border-0 py-2 px-1 focus:outline-none hover:bg-green-700 rounded"
-                    onClick={handleClick}
+                    onClick={handleClickSave}
                   >
                     Guardar
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      class="h-6 w-6"
+                      className="h-6 w-6"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -178,14 +199,16 @@ const SingleProducts = () => {
                 </>
               ) : (
                 <>
-                  <button className="flex text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded">
+                  <button 
+                  onClick={handleFavoriteClick}
+                  className="flex text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded">
                     Favoritos
                     <svg
                       fill="currentColor"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"
-                      class="ml-2 w-5 h-5"
+                      className="ml-2 w-5 h-5"
                       viewBox="0 0 24 24"
                     >
                       <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>

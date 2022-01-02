@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import {useSelector } from "react-redux"; 
 
-export function useNameProduct() {
+export function useInputName() {
+  const singleProduct = useSelector((state) => state.products.singleProduct);
+
   const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~*]/;
-  const [name, setName] = useState("");
+  const [name, setName] = useState(singleProduct?.name);
 
   const onChangeName = (e) => {
     if (e.target.value.length > 25) {
@@ -29,4 +32,4 @@ export function useNameProduct() {
   return { name, onChangeName, validateName };
 }
 
-export default useNameProduct;
+export default useInputName;

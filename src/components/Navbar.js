@@ -51,7 +51,7 @@ const Navbar = () => {
     if (localStorage.getItem("user")) {
       dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -107,7 +107,7 @@ const Navbar = () => {
                                       <Link to={item.href}>
                                         <button
                                           className={classNames(
-                                            active ? "bg-yellow-300" : "",
+                                            active ? "bg-yellow-300 w-full": "w-full",
                                             "block px-4 py-2 text-sm text-gray-700"
                                           )}
                                         >
@@ -123,7 +123,7 @@ const Navbar = () => {
                                       <button
                                         onClick={handleClick}
                                         className={classNames(
-                                          active ? "bg-gray-100" : "",
+                                          active ? "bg-yellow-300 w-full": "w-full",
                                           "block px-4 py-2 text-sm text-gray-700"
                                         )}
                                       >
@@ -172,24 +172,25 @@ const Navbar = () => {
                   </div>
                   <div className="mt-3 px-2 space-y-1">
                     {!user
-                      ? userNavigation.map((item) => (
+                      ? userNavigation.map((item, index) => (
                           <Link to={item.href}>
                             <Disclosure.Button
-                              key={item.name}
                               as="a"
                               className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                             >
+                              <li key={index}>
                               {item.name}
+                              </li>
                             </Disclosure.Button>
                           </Link>
                         ))
-                      : userLogued.map((item) => (
+                      : userLogued.map((item, index) => (
                           <Disclosure.Button
-                            key={item.name}
                             as="a"
                             className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                          >
+                          ><li key={index}>
                             <button onClick={handleClick}>{item.name}</button>
+                          </li>
                           </Disclosure.Button>
                         ))}
                   </div>

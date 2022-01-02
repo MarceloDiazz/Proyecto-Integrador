@@ -17,7 +17,7 @@ const Filter = () => {
     }
 
     dispatch(getProductsByCategory(name));
-  }, [type, name]);
+  }, [type, name, dispatch]);
 
   return (
     <div>

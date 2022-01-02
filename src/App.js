@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
@@ -11,7 +11,7 @@ import SingleProducts from "./components/SingleProduct";
 import Filter from "./components/Filter";
 import GridUsers from "./components/admin/GridUsers";
 import Product from "./components/admin/Product";
-import { Toaster, toast } from "react-hot-toast";
+
 
 const App = () => {
   const user = useSelector((state) => state.registration.user);

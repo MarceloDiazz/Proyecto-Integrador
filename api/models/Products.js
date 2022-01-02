@@ -7,7 +7,6 @@ Products.init(
   {
     name: {
       type: S.STRING,
-      allowNull: false,
     },
     description: {
       type: S.STRING,

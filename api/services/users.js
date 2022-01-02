@@ -19,6 +19,25 @@ class UserService {
       return { error: true, data: error.message };
     }
   }
+  static async userId(id) {
+    try {
+      const users = await User.findOne({
+        where: {
+          id: id,
+        },
+        include: [
+          {
+            model: Products,
+            as: "products",
+            attributes: ["name", "location", "image", "description"],
+          },
+        ],
+      });
+      return { error: false, data: users };
+    } catch (error) {
+      return { error: true, data: error.message };
+    }
+  }
   static async deleteUsers(id) {
     try {
       const users = await User.destroy({

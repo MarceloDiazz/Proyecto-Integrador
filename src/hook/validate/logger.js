@@ -58,7 +58,7 @@ export function usePassword() {
 
 export function useEmail() {
   const regex =
-    /^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/;
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const [email, setEmail] = useState("");
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -66,7 +66,7 @@ export function useEmail() {
 
   const validateEmail = () => {
     if (!regex.test(email)) {
-      return { error: true, message: "Email is invalid" };
+      return { error: true, message: "Email is invalid, Can't have symbols " };
     }
     return { error: false };
   };

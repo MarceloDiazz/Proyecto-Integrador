@@ -15,6 +15,7 @@ const localStrategy = require("passport-local").Strategy;
 
 const User = require("./models/User");
 const Products = require("./models/Products");
+const Favorites = require("./models/Favorites");
 
 const morgan = require("morgan");
 app.use(morgan("tiny"));
