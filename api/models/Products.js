@@ -1,27 +1,23 @@
 const S = require("sequelize");
 const db = require("../db/db");
 
-
-
 class Products extends S.Model {}
 
 Products.init(
   {
     name: {
       type: S.STRING,
-      allowNull: false
     },
     description: {
       type: S.STRING,
       allowNull: false,
-    
     },
     truncarDescripcion: {
-        type: S.VIRTUAL,
-        get: function() {
-          return this.description ? `${this.description.slice(0, 23) }...`: '';
-        }
+      type: S.VIRTUAL,
+      get: function () {
+        return this.description ? `${this.description.slice(0, 23)}...` : "";
       },
+    },
     price: {
       type: S.INTEGER,
       defaultValue: 0,
@@ -29,11 +25,11 @@ Products.init(
     location: {
       type: S.STRING,
     },
-    image:{
-        type: S.STRING,
-        allowNull: false
+    image: {
+      type: S.STRING,
+      allowNull: false,
     },
-   /*  avalible: {
+    /*  avalible: {
       type: S.BOOLEAN,
       defaultValue: true,
     } */
@@ -55,6 +51,5 @@ Products.init(
   },
   { sequelize: db, modelName: "products" }
 );
-
 
 module.exports = Products;

@@ -6,62 +6,52 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import iconTrasla from "../assets/iconTrasla.png";
 import { sendLogoutRequest, setUser } from "../state/registration";
 import { Link, useNavigate } from "react-router-dom";
-import {Toaster, toast} from "react-hot-toast"
-
+import { Toaster, toast } from "react-hot-toast";
 
 const userNavigation = [
   { name: "Login", href: "/login" },
   { name: "Sign Up", href: "/register" },
 ];
-const userLogued = [{ name: "Logout"}];
+const userLogued = [{ name: "Logout" }];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-
-
-
 const Navbar = () => {
-  const navigate= useNavigate()
-  
+  const navigate = useNavigate();
+
   const user = useSelector((state) => state.registration.user);
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch(sendLogoutRequest())
-    .then(()=> {
-      if (user?.admin === true){
-        toast.success('Chau admin!', {
+    dispatch(sendLogoutRequest()).then(() => {
+      if (user?.admin === true) {
+        toast.success("Chau admin!", {
           duration: 4000,
-          position: 'top-center',
-          })
-          setTimeout(() => {
-            navigate('/')
-            
-          }, 100);
-      }
-      
-      toast.success('Gracias por visitarnos!', {
-        duration: 4000,
-        position: 'top-center',
-        })
+          position: "top-center",
+        });
         setTimeout(() => {
-          navigate('/')
-          
+          navigate("/");
         }, 100);
-        
-    }
-    )
-    }
+      }
+
+      toast.success("Gracias por visitarnos!", {
+        duration: 4000,
+        position: "top-center",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 100);
+    });
+  };
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
       dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
-    }                      
-  }, []);
-
+    }
+  }, [dispatch]);
 
   return (
     <>
@@ -74,12 +64,12 @@ const Navbar = () => {
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
                       <Link to="/">
-                      <img
-                        className="h-12 w-12"
-                        src={iconTrasla}
-                        alt="Workflow"
-                      />
-                   </Link>
+                        <img
+                          className="h-12 w-12"
+                          src={iconTrasla}
+                          alt="Workflow"
+                        />
+                      </Link>
                     </div>
                   </div>
                   <span className="text-2xl font-extrabold tracking-tight text-white">
@@ -114,15 +104,15 @@ const Navbar = () => {
                               ? userNavigation.map((item) => (
                                   <Menu.Item key={item.name}>
                                     {({ active }) => (
-                                      <Link to={item.href} >
-                                      <button
-                                        className={classNames(
-                                          active ? "bg-yellow-300" : "",
-                                          "block px-4 py-2 text-sm text-gray-700"
-                                        )}
-                                      >
-                                        {item.name}
-                                      </button>
+                                      <Link to={item.href}>
+                                        <button
+                                          className={classNames(
+                                            active ? "bg-yellow-300 w-full": "w-full",
+                                            "block px-4 py-2 text-sm text-gray-700"
+                                          )}
+                                        >
+                                          {item.name}
+                                        </button>
                                       </Link>
                                     )}
                                   </Menu.Item>
@@ -133,7 +123,7 @@ const Navbar = () => {
                                       <button
                                         onClick={handleClick}
                                         className={classNames(
-                                          active ? "bg-gray-100" : "",
+                                          active ? "bg-yellow-300 w-full": "w-full",
                                           "block px-4 py-2 text-sm text-gray-700"
                                         )}
                                       >
@@ -182,29 +172,25 @@ const Navbar = () => {
                   </div>
                   <div className="mt-3 px-2 space-y-1">
                     {!user
-                      ? userNavigation.map((item) => (
-                        <Link to={item.href}>
-                          <Disclosure.Button
-                            key={item.name}
-                           
-                            as="a"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                          >
-                            {item.name}
-                          </Disclosure.Button>
-                        </Link>  
-                        ))
-                      : userLogued.map((item) => (
-                          <Disclosure.Button
-                            key={item.name}
-                            as="a"
-                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                          >
-                            <button
-                              onClick={handleClick}
+                      ? userNavigation.map((item, index) => (
+                          <Link to={item.href}>
+                            <Disclosure.Button
+                              as="a"
+                              className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                             >
+                              <li key={index}>
                               {item.name}
-                            </button>
+                              </li>
+                            </Disclosure.Button>
+                          </Link>
+                        ))
+                      : userLogued.map((item, index) => (
+                          <Disclosure.Button
+                            as="a"
+                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                          ><li key={index}>
+                            <button onClick={handleClick}>{item.name}</button>
+                          </li>
                           </Disclosure.Button>
                         ))}
                   </div>
