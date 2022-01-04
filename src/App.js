@@ -27,11 +27,11 @@ const App = () => {
         <Route path="/product/:id" element={<SingleProducts />} />
         <Route
           path="/admin/users"
-          element={user?.admin === false ? <Navigate to="/" /> : <GridUsers />}
+          element={user?.admin === false || !user ? <Navigate to="/" /> : <GridUsers />}
         />
         <Route
           path="/admin/product"
-          element={user?.admin === false ? <Navigate to="/" /> : <Product />}
+          element={user?.admin === false || !user ? <Navigate to="/" /> : <Product />}
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
