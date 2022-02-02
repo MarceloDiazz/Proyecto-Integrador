@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import SingleProducts from "./components/SingleProduct";
 import Filter from "./components/Filter";
 import GridUsers from "./components/admin/GridUsers";
+import Favorites from "./components/Favorites"
 import Product from "./components/admin/Product";
 
 
@@ -25,13 +26,14 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/:type/:name" element={<Filter />} />
         <Route path="/product/:id" element={<SingleProducts />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route
           path="/admin/users"
-          element={user?.admin === false ? <Navigate to="/" /> : <GridUsers />}
+          element={user?.admin === false || !user ? <Navigate to="/" /> : <GridUsers />}
         />
         <Route
           path="/admin/product"
-          element={user?.admin === false ? <Navigate to="/" /> : <Product />}
+          element={user?.admin === false || !user ? <Navigate to="/" /> : <Product />}
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

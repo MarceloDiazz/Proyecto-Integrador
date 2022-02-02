@@ -1,19 +1,23 @@
-const Favorites= require ("../models/Favorites")
+const Favorites = require("../models/Favorites");
 
 class FavoriteController {
-    static favorites(req,res,next){
-        Favorites.findOne({ where: {userId: req.params.userId } })
-        .then((data)=> res.send(data))
-        .catch((error)=> console.log(error))
-    }
-    
-    static addFavorites(req,res,next){
-        Favorites.create(req.body)
-        .then((favorite)=> res.status(201).send(favorite))
-        .catch((error)=> console.log(error))
-    }
+  static favorites(req, res, next) {
+    Favorites.findAll({ where: { userId: req.params.userId } })
+      .then((data) => res.send(data))
+      .catch((error) => console.log(error));
+  }
 
+  
+  static allFavorites(req, res, next) {
+    Favorites.findAll()
+      .then((favorites) => res.status(200).send(favorites))
+      .catch((error) => console.log(error));
+  }
+  static deleteFavorite(req, res, next) {
+    Favorites.destroy({ where: { name: req.params.name } })
+      .then(() => res.sendStatus(200))
+      .catch((error) => console.log(error));
+  }
 }
 
-
-module.exports= FavoriteController
+module.exports = FavoriteController;

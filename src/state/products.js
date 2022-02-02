@@ -70,6 +70,16 @@ export const postProduct = createAsyncThunk("postProduct", (product) => {
     });
 });
 
+export const getFavoriteProduct = createAsyncThunk("favoriteProduct", (userId) => {
+  return axios.get(`http://localhost:3001/api/favorites/${userId}`)
+  .then((res) => res.data);
+});
+
+export const deleteFavoriteProduct = createAsyncThunk("delFavorite", (name) => {
+  return axios.delete(`http://localhost:3001/api/favorites/delete/${name}`)
+});
+
+
 const initialState = {
   categories: [],
   location: [],
@@ -80,6 +90,8 @@ const initialState = {
   updateProduct: [],
   deleteProduct: [],
   postProduct: [],
+  getFavoriteProduct:[],
+  deleteFavoriteProduct:[]
 };
 
 const reducerProducts = createReducer(initialState, {
@@ -108,6 +120,10 @@ const reducerProducts = createReducer(initialState, {
     state = {};
   },
   [postProduct.fulfilled]: (state, action) => (state = {}),
+  [getFavoriteProduct.fulfilled]: (state, action) => {state.favorite = action.payload},
+  [deleteFavoriteProduct.fulfilled]: (state, action) => {
+    state = {};
+  },
 });
 
 export default reducerProducts;

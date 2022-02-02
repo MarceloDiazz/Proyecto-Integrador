@@ -4,7 +4,7 @@ const auth = require("./auth");
 const products = require("./products");
 const admin = require("./admin");
 const users = require("./users");
-const favorites= require("./favorites")
+const favorites = require("./favorites");
 var cors = require("cors");
 
 router.use(cors());
@@ -20,8 +20,7 @@ router.use("/auth", auth);
 router.use("/admin", admin);
 
 //FAVORITES
-router.use("/favorites", favorites)
-
+router.use("/favorites", favorites);
 
 //PROBANDO RUTA
 router.get("/", (req, res) => {

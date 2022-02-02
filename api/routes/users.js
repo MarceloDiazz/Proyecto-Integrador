@@ -7,7 +7,7 @@ require("../models/asociations");
 router.use(cors());
 
 router.get("/", UserController.allUsers);
-router.get("/:id", UserController.userId)
+router.get("/:id", UserController.userId);
 router.delete("/delete/:id", UserController.deleteUsers);
 
 module.exports = router;

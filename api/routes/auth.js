@@ -25,7 +25,6 @@ router.post("/register", (req, res, next) => {
   });
 });
 
-
 router.get("/logout", AuthController.userLogout);
 
 /* LOGIN */

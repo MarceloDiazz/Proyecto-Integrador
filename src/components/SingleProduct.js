@@ -14,13 +14,11 @@ import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import { useInputName } from "../hook/product/useInputName";
 
-
 const SingleProducts = () => {
   const navigate = useNavigate();
   const [edit, setEdit] = useState(true);
   const { id } = useParams();
   const user = useSelector((state) => state.registration.user);
-
 
   const singleProduct = useSelector((state) => state.products.singleProduct);
   const dispatch = useDispatch();
@@ -28,25 +26,44 @@ const SingleProducts = () => {
     dispatch(getSingleProduct(id));
   }, [dispatch, id]);
 
- 
-
   const { name, onChangeName, validateName } = useInputName();
-  const image = useInputImage("")
-  const location = useInputLocation("");
-  const category = useInputCategory("");
-  const description = useInputDescription("");
+  const { image, onChangeImage } = useInputImage("");
+  const { location, onChangeLocation } = useInputLocation("");
+  const { category, onChangeCategory } = useInputCategory();
+  const { description, onChangeDescription } = useInputDescription("");
 
-  
-  const handleFavoriteClick= (e)=>{
-    axios.post("http://localhost:3001/api/favorites",{
-      userId:user?.id,
-      name: singleProduct?.name,
-      description:singleProduct?.description,
-      image: singleProduct?.image
-    })
-
-  }
-
+  const handleFavoriteClick = (e) => {
+    axios
+      .post("http://localhost:3001/api/favorites", {
+        userId: user?.id,
+        name: singleProduct?.name,
+        description: singleProduct?.description,
+        image: singleProduct?.image,
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.status === 201) {
+          toast.success("Agregado a favoritos!, redirigiendo...", {
+            duration: 2000,
+            position: "top-center",
+          });
+          setTimeout(() => {
+            navigate("/favorites");
+          }, 1000);
+        } else {
+          toast.error("Algo saliomal, redirigiendo...", {
+            duration: 2000,
+            position: "top-center",
+          });
+        }
+      })
+      .catch(() =>
+        toast.error("Ya agregaste este producto a favoritos", {
+          duration: 2000,
+          position: "top-center",
+        })
+      );
+  };
 
   const handleClickSave = (e) => {
     e.preventDefault();
@@ -59,7 +76,7 @@ const SingleProducts = () => {
         location: location.value,
         name: name,
         image: image.value,
-        category: category.value,
+        category: category,
         description: description.value,
       })
       .then((data) => {
@@ -89,17 +106,17 @@ const SingleProducts = () => {
             {user?.admin === true ? (
               <>
                 <input
-                  {...image}
+                  onChange={onChangeImage}
                   className="w-full text-sm title-font text-gray-500 tracking-widest"
                   value={!edit ? null : singleProduct?.image}
                 />
                 <input
-                  {...location}
+                  onChange={onChangeLocation}
                   className="text-sm title-font text-gray-500 tracking-widest"
                   value={!edit ? null : singleProduct?.location}
                 />
                 <input
-                  {...category}
+                  onChange={onChangeCategory}
                   className="text-sm title-font text-gray-500 tracking-widest"
                   value={!edit ? null : singleProduct?.category}
                 />
@@ -109,7 +126,7 @@ const SingleProducts = () => {
                   value={!edit ? null : singleProduct?.name}
                 />
                 <textarea
-                  {...description}
+                  onChange={onChangeDescription}
                   className="leading-relaxed h-40 w-full"
                   value={!edit ? null : singleProduct?.description}
                 />
@@ -146,7 +163,7 @@ const SingleProducts = () => {
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          stroke-width="2"
+                          strokeWidth="2"
                           d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                         />
                       </svg>
@@ -166,9 +183,9 @@ const SingleProducts = () => {
                           stroke="currentColor"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"
                           />
                         </svg>
@@ -186,12 +203,12 @@ const SingleProducts = () => {
                       className="h-6 w-6"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke="currentColor"
+                      strokeWidth="currentColor"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"
                       />
                     </svg>
@@ -199,15 +216,16 @@ const SingleProducts = () => {
                 </>
               ) : (
                 <>
-                  <button 
-                  onClick={handleFavoriteClick}
-                  className="flex text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded">
+                  <button
+                    onClick={handleFavoriteClick}
+                    className="flex text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded"
+                  >
                     Favoritos
                     <svg
                       fill="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       className="ml-2 w-5 h-5"
                       viewBox="0 0 24 24"
                     >
