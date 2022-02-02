@@ -1,5 +1,5 @@
 const Products = require("./Products");
-const Favorites= require("./Favorites")
+const Favorites = require("./Favorites");
 const User = require("./User");
 
 //Yo quiero que una persona pueda agregar la cant de productos a fav
@@ -17,8 +17,7 @@ Products.belongsTo(User, { as: "products" });
 });
 */
 
-
 User.hasMany(Favorites, {
   as: "userId",
-  foreignKey: "Favorites"
-}); 
+  foreignKey: "Favorites",
+});

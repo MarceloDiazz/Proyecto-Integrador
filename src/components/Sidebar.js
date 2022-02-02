@@ -38,7 +38,7 @@ const Sidebar = () => {
         </span>
         <div>
           <h6 className="flex justify-center border bg-black text-white text-2xl">
-            {user?.admin === true ? "¿Qué desea hacer?" : "Ubicacion"}
+            {user?.admin === true ? "¿Qué desea hacer?" : "Ubicación"}
           </h6>
           <div className="mb-20">
             {user?.admin === true ? (
@@ -60,9 +60,9 @@ const Sidebar = () => {
                 </ul>
               </>
             ) : (
-              filterLocation.map((item) => {
+              filterLocation.map((item, index) => {
                 return (
-                  <ul className="p-4">
+                  <ul className="p-4" key={index}>
                     <Link to={`/location/${item}`}>
                       <li className="flex justify-center border p-2 hover:bg-green-200 rounded hover:border-green-200">
                         {item.toUpperCase()}
@@ -82,8 +82,8 @@ const Sidebar = () => {
               Categoría
             </h6>
             <div>
-              {filterCategories.map((item) => (
-                <ul className="p-4">
+              {filterCategories.map((item, index) => (
+                <ul className="p-4" key={index}>
                   <Link to={`/category/${item}`}>
                     {" "}
                     <li className="flex justify-center border p-2 hover:bg-green-200 rounded hover:border-green-200">

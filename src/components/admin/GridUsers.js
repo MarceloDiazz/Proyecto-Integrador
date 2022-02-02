@@ -4,7 +4,6 @@ import { getUsers } from "../../state/registration";
 
 const GridUsers = () => {
   const user = useSelector((state) => state.registration.users);
-  console.log("USER DESDE ADMIN", user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUsers());

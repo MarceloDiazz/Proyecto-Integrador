@@ -12,7 +12,7 @@ const Grid = () => {
     <div className="mt-2 grid grid-cols-1 gap-y-5 gap-x-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-4">
       {categories[0]
         ? categories.map((data, i) => <CardProducts card={data} key={i} />)
-        : locations.map((data) => <CardProducts card={data} />)}
+        : locations.map((data, i) => <CardProducts card={data} key={i}/>)}
     </div>
   );
 };
